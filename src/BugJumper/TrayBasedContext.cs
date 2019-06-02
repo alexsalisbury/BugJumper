@@ -28,9 +28,13 @@ namespace BugJumper
                 Visible = true
             };
         }
-
+        
         public void Exit(object sender, EventArgs e)
         {
+            // Hide tray icon, otherwise it will remain shown until user mouses over it
+            trayIcon.Visible = false;
+
+            Application.Exit();
         }
     }
 }
