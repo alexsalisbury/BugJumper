@@ -32,9 +32,13 @@ steps:
 
 - script: |
     dotnet build BugJumper.sln --configuration $(buildConfiguration)
-    dotnet build BugJumperCore.sln --configuration $(buildConfiguration)
+    dotnet build BugJumperCore.sln
+    dotnet test BugJumperCore.Tests --configuration  --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
 
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- powershell: .\codecov.ps1 -token $(CODECOV_TOKEN)
+  displayName: Upload to CodeCov.io
