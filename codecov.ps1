@@ -5,7 +5,7 @@ param
 
 $ver = (gci "$env:userprofile\.nuget\packages\codecov")[0].Name
 $cmd = "$env:userprofile\.nuget\packages\codecov\$ver\tools\codecov.exe";
-$fName = ".\test\BugJumperCore.Tests\coverage.opencover.xml";
+$fName = ".\test\BugJumper.Tests\coverage.opencover.xml";
 $arg1 = "-f ""$fName""";
 $arg2 = "-t $token";
 $arg3 = "--flag";
