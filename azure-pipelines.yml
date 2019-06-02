@@ -20,6 +20,7 @@ steps:
   inputs:
     version: '3.0.100-preview5-011568'
     includePreviewVersions: true
+    installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - task: NuGetToolInstaller@0
 
@@ -27,12 +28,9 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    vsVersion: '16.0'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+- script: |
+    dotnet build BugJumper.sln --configuration $(buildConfiguration)
+    dotnet build BugJumperCore.sln --configuration $(buildConfiguration)
 
 - task: VSTest@2
   inputs:
