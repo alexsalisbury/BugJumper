@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace BugJumper.Tests
+namespace BugJumperCore.Tests
 {
     public class UnitTest1
     {
