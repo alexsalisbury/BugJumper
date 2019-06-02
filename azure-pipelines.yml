@@ -33,7 +33,7 @@ steps:
 - script: |
     dotnet build BugJumper.sln --configuration $(buildConfiguration)
     dotnet build BugJumperCore.sln
-    dotnet test BugJumperCore.Tests --configuration  --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
+    dotnet test test/BugJumper.Tests --configuration  --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
 
 - task: VSTest@2
   inputs:
