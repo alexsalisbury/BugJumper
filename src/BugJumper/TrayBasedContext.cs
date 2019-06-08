@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace BugJumper
+﻿namespace BugJumper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public class TrayBasedContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
+        private Dictionary<Keys, bool> controlState;
 
         public TrayBasedContext(Icon appIcon)
         {
+            controlState = new Dictionary<Keys, bool>();
+            foreach (var k in GlobalKeyboardHook.ControlKeys)
+            {
+                controlState.Add(k, false);
+            }
+
             var exit = new MenuItem("Exit", Exit);
 
             MenuItem[] main = { exit };
@@ -36,6 +43,11 @@ namespace BugJumper
         {
             var data = args.KeyboardData;
             var state = args.KeyboardState;
+
+            bool isSys = ((state == KeyboardState.SysKeyDown) || (state == KeyboardState.SysKeyUp));
+            bool isDown = ((state == KeyboardState.KeyDown) || (state == KeyboardState.SysKeyDown));
+
+            controlState[data.Key] = isDown;
         }
     }
 }
