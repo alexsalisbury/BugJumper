@@ -5,13 +5,6 @@
     using System.Diagnostics;
     using System.Runtime.InteropServices;
 
-    public class GlobalKeyboardHookEventArgs : HandledEventArgs
-    {
-        public GlobalKeyboardHookEventArgs()
-        {
-        }
-    }
-
     //Based on https://gist.github.com/Stasonix
     public class GlobalKeyboardHook : IDisposable
     {
@@ -133,12 +126,18 @@
             bool fEatKeyStroke = false;
 
             var wparamTyped = wParam.ToInt32();
-            var eventArguments = new GlobalKeyboardHookEventArgs();
+            if (Enum.IsDefined(typeof(KeyboardState), wparamTyped))
+            {
+                object o = Marshal.PtrToStructure(lParam, typeof(LowLevelKeyboardInputEvent));
+                LowLevelKeyboardInputEvent p = (LowLevelKeyboardInputEvent)o;
 
-            EventHandler<GlobalKeyboardHookEventArgs> handler = KeyboardPressed;
-            handler?.Invoke(this, eventArguments);
+                var eventArguments = new GlobalKeyboardHookEventArgs(p, (KeyboardState)wparamTyped);
 
-            fEatKeyStroke = eventArguments.Handled;
+                EventHandler<GlobalKeyboardHookEventArgs> handler = KeyboardPressed;
+                handler?.Invoke(this, eventArguments);
+
+                fEatKeyStroke = eventArguments.Handled;
+            }
 
             return fEatKeyStroke ? (IntPtr)1 : CallNextHookEx(IntPtr.Zero, nCode, wParam, lParam);
         }

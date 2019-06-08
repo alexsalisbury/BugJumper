@@ -13,5 +13,17 @@ namespace BugJumperCore.Tests
 
             Assert.NotNull(tbc);
         }
+
+        [Fact]
+        public void KeyEvent()
+        {
+            TrayBasedContext tbc = new TrayBasedContext(null);
+            var llie = new LowLevelKeyboardInputEvent();
+            var g = new GlobalKeyboardHookEventArgs(llie, KeyboardState.KeyUp);
+
+
+            tbc.HandleKey(null, g);
+
+        }
     }
 }
