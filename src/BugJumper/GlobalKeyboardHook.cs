@@ -1,13 +1,17 @@
 ﻿namespace BugJumper
 {
     using System;
+    using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
+    using System.Windows.Forms;
 
     //Based on https://gist.github.com/Stasonix
     public class GlobalKeyboardHook : IDisposable
     {
+        public static ImmutableHashSet<Keys> ControlKeys { get; private set; }
 
         public event EventHandler<GlobalKeyboardHookEventArgs> KeyboardPressed;
         private const int WH_KEYBOARD_LL = 13;
@@ -20,6 +24,19 @@
 
         public GlobalKeyboardHook()
         {
+            // This is idempotent, so I don't care about multithreading issues.
+            ControlKeys = ControlKeys ?? ImmutableHashSet.CreateRange(new List<Keys>()
+            {
+                Keys.LControlKey,
+                Keys.LShiftKey,
+                Keys.LWin,
+                Keys.LMenu,
+                Keys.RMenu,
+                Keys.RControlKey,
+                Keys.RWin,
+                Keys.RShiftKey
+            });
+
             windowsHookHandle = IntPtr.Zero;
             user32LibraryHandle = IntPtr.Zero;
             hookProc = LowLevelKeyboardProc; // we must keep alive hookProc, because GC is not aware about SetWindowsHookEx behaviour.
