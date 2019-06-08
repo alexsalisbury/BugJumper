@@ -22,7 +22,14 @@
 
             using (GlobalKeyboardHook ghk = new GlobalKeyboardHook())
             {
-                Instance = new TrayBasedContext(Resources.AppIcon);
+                //TODO: Load Options from Config
+                var kps = new KeyPressState()
+                {
+                    IsCtrl = true,
+                    Key = Keys.Oemtilde
+                };
+
+                Instance = new TrayBasedContext(Resources.AppIcon, kps);
                 ghk.KeyboardPressed += Instance.HandleKey;
 
                 Application.Run(Instance);
