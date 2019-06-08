@@ -5,16 +5,11 @@ using System.Windows.Forms;
 
 namespace BugJumper
 {
-    public interface IIconInfo
-    {
-        Icon Icon { get;}
-    }
-
     public class TrayBasedContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
 
-        public TrayBasedContext(IIconInfo appIcon)
+        public TrayBasedContext(Icon appIcon)
         {
             var exit = new MenuItem("Exit", Exit);
 
@@ -23,7 +18,7 @@ namespace BugJumper
             // Initialize Tray Icon
             trayIcon = new NotifyIcon()
             {
-                Icon = appIcon?.Icon,
+                Icon = appIcon,
                 ContextMenu = new ContextMenu(main),
                 Visible = true
             };
@@ -35,6 +30,12 @@ namespace BugJumper
             trayIcon.Visible = false;
 
             Application.Exit();
+        }
+
+        public void HandleKey(object sender, GlobalKeyboardHookEventArgs args)
+        {
+            var data = args.KeyboardData;
+            var state = args.KeyboardState;
         }
     }
 }
