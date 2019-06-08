@@ -9,9 +9,11 @@
     {
         private NotifyIcon trayIcon;
         private Dictionary<Keys, bool> controlState;
+        private KeyPressState formLaunchShortcut;
 
-        public TrayBasedContext(Icon appIcon)
+        public TrayBasedContext(Icon appIcon, KeyPressState kps)
         {
+            this.formLaunchShortcut = kps;
             controlState = new Dictionary<Keys, bool>();
             foreach (var k in GlobalKeyboardHook.ControlKeys)
             {
@@ -48,6 +50,22 @@
             bool isDown = ((state == KeyboardState.KeyDown) || (state == KeyboardState.SysKeyDown));
 
             controlState[data.Key] = isDown;
+
+            var kps = KeyPressState.Create(controlState, data.Key);
+            VerifyFormState(kps, isDown);
+        }
+
+        private void VerifyFormState(KeyPressState kps, bool isDown)
+        {
+            if (isDown && this.ShouldShowForm(kps))
+            {
+                //Launch(this, null);
+            }
+        }
+
+        private bool ShouldShowForm(KeyPressState kps)
+        {
+            return kps.Equals(this.formLaunchShortcut);
         }
     }
 }
