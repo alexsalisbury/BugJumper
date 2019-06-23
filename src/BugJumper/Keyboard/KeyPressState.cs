@@ -56,7 +56,21 @@
 
         public override int GetHashCode()
         {
+#if NETCOREAPP
             return HashCode.Combine(IsWin, IsCtrl, IsAlt, IsShift, Key);
+#else
+
+            unchecked // Overflow is fine, just wrap
+            {
+                int hash = 17;
+                hash = hash * 23 + IsWin.GetHashCode();
+                hash = hash * 23 + IsCtrl.GetHashCode();
+                hash = hash * 23 + IsAlt.GetHashCode();
+                hash = hash * 23 + IsShift.GetHashCode();
+                hash = hash * 23 + Key.GetHashCode();
+                return hash;
+            }
+#endif
         }
     }
 }
