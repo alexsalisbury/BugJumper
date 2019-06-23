@@ -4,11 +4,13 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using BugJumper.Views;
 
     public class TrayBasedContext : ApplicationContext
     {
         private NotifyIcon trayIcon;
         private Dictionary<Keys, bool> controlState;
+        private Dictionary<string, Form> forms = new Dictionary<string, Form>();
         private KeyPressState formLaunchShortcut;
 
         public TrayBasedContext(Icon appIcon, KeyPressState kps)
@@ -59,13 +61,24 @@
         {
             if (isDown && this.ShouldShowForm(kps))
             {
-                //Launch(this, null);
+                Launch(this, null);
             }
         }
 
         private bool ShouldShowForm(KeyPressState kps)
         {
             return kps.Equals(this.formLaunchShortcut);
+        }
+
+        public void Launch(object sender, EventArgs e)
+        {
+            if (!this.forms.ContainsKey(Launchpad.CanonicalName))
+            {
+                this.forms[Launchpad.CanonicalName] = new Launchpad("http://localhost/{0}");
+            }
+
+            var form = this.forms[Launchpad.CanonicalName];
+            form.Show();
         }
     }
 }
