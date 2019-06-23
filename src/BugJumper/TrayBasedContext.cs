@@ -23,6 +23,7 @@
             }
 
             var launch = new MenuItem("Launch", Launch);
+            var options = new MenuItem("Options", Options);
             var exit = new MenuItem("Exit", Exit);
 
             MenuItem[] main = { launch, exit };
@@ -35,7 +36,11 @@
                 Visible = true
             };
         }
-        
+
+        private void Options(object sender, EventArgs e)
+        {
+        }
+
         public void Exit(object sender, EventArgs e)
         {
             // Hide tray icon, otherwise it will remain shown until user mouses over it
