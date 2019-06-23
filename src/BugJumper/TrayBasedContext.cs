@@ -22,9 +22,10 @@
                 controlState.Add(k, false);
             }
 
+            var launch = new MenuItem("Launch", Launch);
             var exit = new MenuItem("Exit", Exit);
 
-            MenuItem[] main = { exit };
+            MenuItem[] main = { launch, exit };
 
             // Initialize Tray Icon
             trayIcon = new NotifyIcon()
