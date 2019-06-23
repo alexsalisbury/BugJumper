@@ -4,9 +4,17 @@
     using System.Windows.Forms;
     using BugJumper;
 
-    public partial class Launchpad : Form
+    public interface INamedForm
+    {
+        static string CanonicalName { get; }
+    }
+
+    public partial class Launchpad : Form, INamedForm
     {
         string urlFormat;
+
+        public static string CanonicalName => "LAUNCHPAD";
+
         public event EventHandler<UrlFormatChangedEventArgs> UrlFormatChanged;
 
         public Launchpad(string urlFormat)
