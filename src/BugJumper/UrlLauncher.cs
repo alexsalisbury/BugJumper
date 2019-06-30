@@ -8,14 +8,19 @@
         void Launch(string url);
     }
 
-    //http://faithlife.codes/blog/2008/01/using_processstart_to_link_to/
+    //https://stackoverflow.com/questions/7693429/process-start-to-open-an-url-getting-an-exception
     public class UrlLauncher : IUrlLauncher
     {
         public void Launch(string url)
         {
             try
             {
-                Process.Start(url);
+                var ps = new ProcessStartInfo(url)
+                {
+                    UseShellExecute = true,
+                    Verb = "open"
+                };
+                Process.Start(ps);
             }
             catch (Exception)
             {
