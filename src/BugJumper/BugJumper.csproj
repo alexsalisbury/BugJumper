@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\GlobalKeyboardHookEventArgs.cs" />
+    <Compile Include="Events\UrlFormatChangedEventArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TrayBasedContext.cs" />
+    <Compile Include="UrlLauncher.cs" />
     <Compile Include="Views\Launchpad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,7 +66,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Keyboard\GlobalKeyboardHook.cs" />
-    <Compile Include="Keyboard\GlobalKeyboardHookEventArgs.cs" />
     <Compile Include="Keyboard\KeyboardState.cs" />
     <Compile Include="Keyboard\KeyPressState.cs" />
     <Compile Include="Keyboard\LowLevelKeyboardInputEvent.cs" />
