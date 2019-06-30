@@ -1,6 +1,7 @@
-﻿namespace BugJumper
+﻿namespace BugJumper.Services
 {
     using System;
+    using System.Diagnostics;
 
     public interface IUrlLauncher
     {

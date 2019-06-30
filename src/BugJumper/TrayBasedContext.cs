@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using BugJumper.Services;
     using BugJumper.Views;
 
     public class TrayBasedContext : ApplicationContext
@@ -12,10 +13,12 @@
         private Dictionary<Keys, bool> controlState;
         private Dictionary<string, Form> forms = new Dictionary<string, Form>();
         private KeyPressState formLaunchShortcut;
+        private IUrlLauncher launcher;
 
         public TrayBasedContext(Icon appIcon, KeyPressState kps)
         {
             this.formLaunchShortcut = kps;
+            launcher = new UrlLauncher();
             controlState = new Dictionary<Keys, bool>();
             foreach (var k in GlobalKeyboardHook.ControlKeys)
             {
@@ -80,7 +83,7 @@
         {
             if (!this.forms.ContainsKey(Launchpad.CanonicalName))
             {
-                this.forms[Launchpad.CanonicalName] = new Launchpad("http://localhost/{0}");
+                this.forms[Launchpad.CanonicalName] = new Launchpad(launcher, "http://localhost/{0}");
             }
 
             var form = this.forms[Launchpad.CanonicalName];
