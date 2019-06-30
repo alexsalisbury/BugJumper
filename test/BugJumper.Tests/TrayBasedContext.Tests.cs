@@ -1,6 +1,7 @@
 namespace BugJumperCore.Tests
 {
     using BugJumper;
+    using BugJumper.Config;
     using System.Reflection;
     using Xunit;
 
@@ -10,7 +11,7 @@ namespace BugJumperCore.Tests
         public void Smoke()
         {
             GlobalKeyboardHook ghk = new GlobalKeyboardHook();
-            TrayBasedContext tbc = new TrayBasedContext(null, new KeyPressState());
+            TrayBasedContext tbc = new TrayBasedContext(null, new KeyPressState(), new JsonConfigProvider(string.Empty));
 
             Assert.NotNull(tbc);
         }
@@ -18,7 +19,7 @@ namespace BugJumperCore.Tests
         [Fact]
         public void KeyEvent()
         {
-            TrayBasedContext tbc = new TrayBasedContext(null, new KeyPressState());
+            TrayBasedContext tbc = new TrayBasedContext(null, new KeyPressState(), new JsonConfigProvider(string.Empty));
             var llie = new LowLevelKeyboardInputEvent();
             var g = new GlobalKeyboardHookEventArgs(llie, KeyboardState.KeyUp);
 

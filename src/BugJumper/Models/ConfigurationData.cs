@@ -33,7 +33,7 @@
             this.provider = provider;
         }
 
-        public ConfigurationData(ConfigurationData parent, IDictionary<string, object> dictionary) : this(parent, dictionary, parent?.provider ?? new JsonConfigProvider())
+        public ConfigurationData(ConfigurationData parent, IDictionary<string, object> dictionary) : this(parent, dictionary, parent?.provider ?? new JsonConfigProvider(string.Empty))
         {
         }
 
