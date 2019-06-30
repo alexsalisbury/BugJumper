@@ -29,6 +29,7 @@
 
             UrlFormatChanged += Launchpad_UrlFormatChanged;
             this.launcher = launcher;
+            this.urlFormat = urlFormat;
         }
 
         private void btnGo_Click(object sender, EventArgs e)
