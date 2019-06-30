@@ -12,15 +12,28 @@
     //https://github.com/alexsalisbury/Home/tree/master/src/Home.Configuration
     public class JsonConfigProvider : IConfigProvider
     {
-        public ConfigurationData Load(string fullPath)
+        public ConfigurationData Data { get; private set; }
+        public string FullPath { get; private set; }
+
+        public JsonConfigProvider(string fullPath)
         {
-            if (string.IsNullOrWhiteSpace(fullPath))
+            this.FullPath = fullPath;
+        }
+
+        public ConfigurationData Load()
+        {
+            if (this.Data == null)
             {
-                throw new ArgumentNullException("fullPath");
+                if (string.IsNullOrWhiteSpace(this.FullPath))
+                {
+                    throw new ArgumentNullException("fullPath");
+                }
+
+                var json = File.ReadAllText(this.FullPath);
+                this.Data = Parse(json);
             }
 
-            var json = File.ReadAllText(fullPath);
-            return Parse(json);
+            return this.Data;
         }
 
         public ConfigurationData Parse(string json)
@@ -34,6 +47,19 @@
 
             var data = new ConfigurationData(null, parsedConfig, this);
             return data;
+        }
+
+        public bool Save(ConfigurationData data)
+        {
+            bool saved = false;
+            var savedata = data ?? this.Data;
+            if (savedata != null)
+            {
+                File.WriteAllText(this.FullPath, this.Data.ToString());
+                saved = true;
+            }
+
+            return saved;
         }
 
         public dynamic ProcessProperties(ConfigurationData parent, dynamic value)
