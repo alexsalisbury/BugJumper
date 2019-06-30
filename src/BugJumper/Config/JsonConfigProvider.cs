@@ -29,8 +29,15 @@
                     throw new ArgumentNullException("fullPath");
                 }
 
-                var json = File.ReadAllText(this.FullPath);
-                this.Data = Parse(json);
+                if (File.Exists(this.FullPath))
+                {
+                    var json = File.ReadAllText(this.FullPath);
+                    this.Data = Parse(json);
+                }
+                else
+                {
+                    return new ConfigurationData(this);
+                }
             }
 
             return this.Data;
@@ -55,7 +62,7 @@
             var savedata = data ?? this.Data;
             if (savedata != null)
             {
-                File.WriteAllText(this.FullPath, this.Data.ToString());
+                File.WriteAllText(this.FullPath, savedata.ToString());
                 saved = true;
             }
 

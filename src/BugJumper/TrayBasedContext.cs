@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
+    using BugJumper.Config;
+    using BugJumper.Models;
     using BugJumper.Services;
     using BugJumper.Views;
 
@@ -14,12 +16,20 @@
         private Dictionary<string, Form> forms = new Dictionary<string, Form>();
         private KeyPressState formLaunchShortcut;
         private IUrlLauncher launcher;
+        private IConfigProvider optionProvider;
+        private ConfigurationData data;
+        private const string UrlFormatKey = "UrlFormat";
 
-        public TrayBasedContext(Icon appIcon, KeyPressState kps)
+
+        public TrayBasedContext(Icon appIcon, KeyPressState kps, IConfigProvider optionProvider)
         {
             this.formLaunchShortcut = kps;
+            this.optionProvider = optionProvider;
+            this.data = optionProvider.Load();
+            this.EnsureRequiredOptions(data, optionProvider);
             launcher = new UrlLauncher();
             controlState = new Dictionary<Keys, bool>();
+
             foreach (var k in GlobalKeyboardHook.ControlKeys)
             {
                 controlState.Add(k, false);
@@ -38,6 +48,21 @@
                 ContextMenu = new ContextMenu(main),
                 Visible = true
             };
+        }
+
+        private ConfigurationData EnsureRequiredOptions(ConfigurationData data, IConfigProvider optionProvider)
+        {
+            EnsureRequiredOption(data, UrlFormatKey);
+            optionProvider.Save(data);
+            return data;
+        }
+
+        private void EnsureRequiredOption(ConfigurationData data, string optionName)
+        {
+            if (!data.ContainsKey(optionName))
+            {
+                data.Add(optionName, "UNSET_VALUE");
+            }
         }
 
         private void Options(object sender, EventArgs e)
@@ -83,7 +108,8 @@
         {
             if (!this.forms.ContainsKey(Launchpad.CanonicalName))
             {
-                this.forms[Launchpad.CanonicalName] = new Launchpad(launcher, "http://localhost/{0}");
+                //Ensure makes sure this is available as a Key in the dict.
+                this.forms[Launchpad.CanonicalName] = new Launchpad(launcher, this.optionProvider.Data[UrlFormatKey]);
             }
 
             var form = this.forms[Launchpad.CanonicalName];
