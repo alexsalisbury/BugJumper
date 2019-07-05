@@ -32,6 +32,12 @@
             this.urlFormat = urlFormat;
         }
 
+        public void Reset()
+        {
+            this.mtxtNumber.Clear();
+            this.mtxtNumber.Focus();
+        }
+
         private void btnGo_Click(object sender, EventArgs e)
         {
             string target = string.Empty;
@@ -48,6 +54,7 @@
             if(!string.IsNullOrWhiteSpace(target))
             {
                 launcher.Launch(target);
+                this.Hide();
             }
         }
 
