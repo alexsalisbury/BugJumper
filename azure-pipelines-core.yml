@@ -12,7 +12,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/BugJumperCore.sln'
+  solution: 'BugJumperCore.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
