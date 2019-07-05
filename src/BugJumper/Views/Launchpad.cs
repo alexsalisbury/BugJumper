@@ -7,12 +7,22 @@
 
     public interface INamedForm
     {
-        static string CanonicalName { get; }
+#if NETCOREAPP3_0
+        static string CanonicalNameCore { get; }
+#else
+        string CanonicalName { get; }
+#endif
     }
 
     public partial class Launchpad : Form, INamedForm
     {
+
+#if NETCOREAPP3_0
         public static string CanonicalName => "LAUNCHPAD";
+#else        
+        public static string CanonicalNameCore => "LAUNCHPAD";
+        public string CanonicalName => "LAUNCHPAD";
+#endif
         public event EventHandler<UrlFormatChangedEventArgs> UrlFormatChanged;
 
         private string urlFormat;

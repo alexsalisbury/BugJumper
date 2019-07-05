@@ -115,13 +115,15 @@
 
         public void Launch(object sender, EventArgs e)
         {
-            if (!this.forms.ContainsKey(Launchpad.CanonicalName))
+            var formName = Launchpad.CanonicalNameCore;
+
+            if (!this.forms.ContainsKey(formName))
             {
                 //Ensure makes sure this is available as a Key in the dict.
-                this.forms[Launchpad.CanonicalName] = new Launchpad(launcher, this.optionProvider.Data[UrlFormatKey]);
+                this.forms[formName] = new Launchpad(launcher, this.optionProvider.Data[UrlFormatKey]);
             }
 
-            var form = (Launchpad)this.forms[Launchpad.CanonicalName];
+            var form = (Launchpad)this.forms[formName];
             form.Show();
             form.Reset();
         }
