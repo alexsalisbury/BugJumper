@@ -12,18 +12,11 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/BugJumper.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Use dotnet sdk 3.0.100-preview5-011568'
-  inputs:
-    version: '3.0.100-preview5-011568'
-    includePreviewVersions: true
-    installationPath: $(Agent.ToolsDirectory)/dotnet
-
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
@@ -31,4 +24,4 @@ steps:
     restoreSolution: '$(solution)'
 
 - script: |
-    dotnet build BugJumper.sln --configuration $(buildConfiguration)
+    dotnet build $(solution) --configuration $(buildConfiguration)

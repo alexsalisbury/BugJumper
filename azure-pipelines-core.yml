@@ -12,7 +12,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
+  solution: '**/BugJumperCore.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -29,7 +29,7 @@ steps:
     restoreSolution: '$(solution)'
 
 - script: |
-    dotnet build BugJumperCore.sln
+    dotnet build $(solution)
     dotnet test test/BugJumper.Tests --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
 
 - task: VSTest@2
