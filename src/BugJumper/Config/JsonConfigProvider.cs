@@ -62,7 +62,8 @@
             var savedata = data ?? this.Data;
             if (savedata != null)
             {
-                File.WriteAllText(this.FullPath, savedata.ToString());
+                var json = JsonConvert.SerializeObject(savedata);
+                File.WriteAllText(this.FullPath, json);
                 saved = true;
             }
 
