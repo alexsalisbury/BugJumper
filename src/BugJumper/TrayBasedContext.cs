@@ -52,17 +52,26 @@
 
         private ConfigurationData EnsureRequiredOptions(ConfigurationData data, IConfigProvider optionProvider)
         {
-            EnsureRequiredOption(data, UrlFormatKey);
-            optionProvider.Save(data);
+            bool changed = false;
+            changed = EnsureRequiredOption(data, UrlFormatKey) || changed;
+
+            if (changed)
+            {
+                optionProvider.Save(data);
+            }
+
             return data;
         }
 
-        private void EnsureRequiredOption(ConfigurationData data, string optionName)
+        private bool EnsureRequiredOption(ConfigurationData data, string optionName)
         {
             if (!data.ContainsKey(optionName))
             {
                 data.Add(optionName, "UNSET_VALUE");
+                return true;
             }
+
+            return false;
         }
 
         private void Options(object sender, EventArgs e)
