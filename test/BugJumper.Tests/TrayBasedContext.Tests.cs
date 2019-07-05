@@ -7,7 +7,7 @@ namespace BugJumperCore.Tests
 
     public class TrayBasedContext_Tests
     {
-        const string localConfig = @"D:\temp\BugJumperConfig.json";
+        const string localConfig = @".\BugJumperConfig.json";
 
         [Fact]
         public void Smoke()

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -19,6 +19,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BugJumper\BugJumperCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SampleData\BugJumperConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
