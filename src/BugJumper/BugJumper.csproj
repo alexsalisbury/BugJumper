@@ -57,6 +57,11 @@
     <Compile Include="Config\JsonConfigProvider.cs" />
     <Compile Include="Events\GlobalKeyboardHookEventArgs.cs" />
     <Compile Include="Events\UrlFormatChangedEventArgs.cs" />
+    <Compile Include="Models\ConfigurationData.cs" />
+    <Compile Include="Models\ConfigurationData.Dynamic.cs" />
+    <Compile Include="Models\ConfigurationData.IDictionary.cs" />
+    <Compile Include="Models\NullExceptionPreventer.cs" />
+    <Compile Include="Models\Unsubscriber.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TrayBasedContext.cs" />
     <Compile Include="UrlLauncher.cs" />
@@ -90,8 +95,6 @@
   <ItemGroup>
     <Content Include="Resources\AppIcon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
