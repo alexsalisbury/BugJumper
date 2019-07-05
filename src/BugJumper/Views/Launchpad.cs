@@ -18,7 +18,7 @@
     {
 
 #if NETCOREAPP3_0
-        public static string CanonicalName => "LAUNCHPAD";
+        public static string CanonicalNameCore => "LAUNCHPAD";
 #else        
         public static string CanonicalNameCore => "LAUNCHPAD";
         public string CanonicalName => "LAUNCHPAD";
