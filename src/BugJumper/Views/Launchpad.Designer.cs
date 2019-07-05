@@ -49,7 +49,7 @@
             // mtxtNumber
             // 
             this.mtxtNumber.Location = new System.Drawing.Point(13, 11);
-            this.mtxtNumber.Mask = "0000";
+            this.mtxtNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
             this.mtxtNumber.Name = "mtxtNumber";
             this.mtxtNumber.ResetOnSpace = false;
             this.mtxtNumber.Size = new System.Drawing.Size(35, 20);

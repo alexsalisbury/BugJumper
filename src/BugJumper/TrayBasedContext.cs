@@ -121,8 +121,9 @@
                 this.forms[Launchpad.CanonicalName] = new Launchpad(launcher, this.optionProvider.Data[UrlFormatKey]);
             }
 
-            var form = this.forms[Launchpad.CanonicalName];
+            var form = (Launchpad)this.forms[Launchpad.CanonicalName];
             form.Show();
+            form.Reset();
         }
     }
 }
