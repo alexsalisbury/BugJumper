@@ -19,14 +19,29 @@
         private IConfigProvider optionProvider;
         private ConfigurationData data;
         private const string UrlFormatKey = "UrlFormat";
+        private const string OptionsKey = "Options";
+        private OptionsData dataObject;
 
 
         public TrayBasedContext(Icon appIcon, KeyPressState kps, IConfigProvider optionProvider)
         {
             this.formLaunchShortcut = kps;
             this.optionProvider = optionProvider;
-            this.data = optionProvider.Load();
-            this.EnsureRequiredOptions(data, optionProvider);
+            dynamic data = optionProvider.Load();
+            if (!data.ContainsKey("Options"))
+            {
+                dataObject = new OptionsData(data);
+
+                data.Add("Options", dataObject.GetData());
+                data.Remove(UrlFormatKey);
+                this.EnsureRequiredOptions(data.Options, optionProvider);
+                optionProvider.Save(data);
+            }
+            else
+            {
+                dataObject = new OptionsData(data.Options);
+            }
+
             launcher = new UrlLauncher();
             controlState = new Dictionary<Keys, bool>();
 
@@ -50,12 +65,12 @@
             };
         }
 
-        private ConfigurationData EnsureRequiredOptions(ConfigurationData data, IConfigProvider optionProvider)
+        private ConfigurationData EnsureRequiredOptions(ConfigurationData data, IConfigProvider optionProvider, bool forceSave = false)
         {
             bool changed = false;
             changed = EnsureRequiredOption(data, UrlFormatKey) || changed;
 
-            if (changed)
+            if (changed || forceSave)
             {
                 optionProvider.Save(data);
             }
@@ -120,7 +135,7 @@
             if (!this.forms.ContainsKey(formName))
             {
                 //Ensure makes sure this is available as a Key in the dict.
-                this.forms[formName] = new Launchpad(launcher, this.optionProvider.Data[UrlFormatKey]);
+                this.forms[formName] = new Launchpad(launcher, dataObject.UrlFormat);
             }
 
             var form = (Launchpad)this.forms[formName];

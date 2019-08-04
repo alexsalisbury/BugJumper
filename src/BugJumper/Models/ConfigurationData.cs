@@ -61,6 +61,11 @@
             }
         }
 
+        public void Clear(string key)
+        {
+
+        }
+
         public void Notify(ConfigurationData obj)
         {
             foreach (var observer in observers)
