@@ -1,11 +1,16 @@
 ﻿namespace BugJumper.Views
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+    
     partial class Launchpad
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,44 +33,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launchpad));
-            this.btnGo = new System.Windows.Forms.Button();
-            this.mtxtNumber = new System.Windows.Forms.MaskedTextBox();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(Launchpad));
+            this.btnGo = new Button();
+            this.mtxtNumber = new MaskedTextBox();
             this.SuspendLayout();
             // 
             // btnGo
             // 
-            this.btnGo.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnGo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnGo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGo.Location = new System.Drawing.Point(54, 11);
+            this.btnGo.BackColor = SystemColors.ButtonHighlight;
+            this.btnGo.BackgroundImageLayout = ImageLayout.None;
+            this.btnGo.FlatStyle = FlatStyle.Popup;
+            this.btnGo.Location = new Point(54, 11);
             this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(34, 21);
+            this.btnGo.Size = new Size(34, 21);
             this.btnGo.TabIndex = 0;
             this.btnGo.Text = "Go";
             this.btnGo.UseVisualStyleBackColor = false;
-            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            this.btnGo.Click += new EventHandler(this.btnGo_Click);
             // 
             // mtxtNumber
             // 
-            this.mtxtNumber.Location = new System.Drawing.Point(13, 11);
-            this.mtxtNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.mtxtNumber.Location = new Point(13, 11);
+            this.mtxtNumber.TextMaskFormat = MaskFormat.IncludePrompt;
             this.mtxtNumber.Name = "mtxtNumber";
             this.mtxtNumber.ResetOnSpace = false;
-            this.mtxtNumber.Size = new System.Drawing.Size(35, 20);
+            this.mtxtNumber.Size = new Size(35, 20);
             this.mtxtNumber.TabIndex = 1;
             this.mtxtNumber.ValidatingType = typeof(int);
             // 
             // Launchpad
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.InfoText;
-            this.ClientSize = new System.Drawing.Size(102, 42);
+            this.AutoScaleDimensions = new SizeF(6F, 13F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.BackColor = SystemColors.InfoText;
+            this.ClientSize = new Size(102, 42);
             this.Controls.Add(this.mtxtNumber);
             this.Controls.Add(this.btnGo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Launchpad";
@@ -79,7 +84,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnGo;
-        private System.Windows.Forms.MaskedTextBox mtxtNumber;
+        private Button btnGo;
+        private MaskedTextBox mtxtNumber;
     }
 }
