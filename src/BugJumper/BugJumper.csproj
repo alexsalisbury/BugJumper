@@ -73,6 +73,12 @@
     <Compile Include="Views\Launchpad.Designer.cs">
       <DependentUpon>Launchpad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
@@ -87,6 +93,9 @@
     </Compile>
     <EmbeddedResource Include="Views\Launchpad.resx">
       <DependentUpon>Launchpad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
