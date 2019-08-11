@@ -17,7 +17,6 @@
         private KeyPressState formLaunchShortcut;
         private IUrlLauncher launcher;
         private IConfigProvider optionProvider;
-        private ConfigurationData data;
         private const string UrlFormatKey = "UrlFormat";
         private const string OptionsKey = "Options";
         private OptionsData dataObject;
