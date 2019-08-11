@@ -50,10 +50,10 @@
             }
 
             var launch = new MenuItem("Launch", Launch);
-            var options = new MenuItem("Options", Options);
+            var options = new MenuItem("Options", OptionsSelect);
             var exit = new MenuItem("Exit", Exit);
 
-            MenuItem[] main = { launch, exit };
+            MenuItem[] main = { launch, options, exit };
 
             // Initialize Tray Icon
             trayIcon = new NotifyIcon()
@@ -88,8 +88,19 @@
             return false;
         }
 
-        private void Options(object sender, EventArgs e)
+        private void OptionsSelect(object sender, EventArgs e)
         {
+            var formName = Options.CanonicalNameCore;
+
+            if (!this.forms.ContainsKey(formName))
+            {
+                //Ensure makes sure this is available as a Key in the dict.
+                this.forms[formName] = new Options();
+            }
+
+            var form = (Options)this.forms[formName];
+            form.Show();
+            //form.Reload();
         }
 
         public void Exit(object sender, EventArgs e)
