@@ -62,6 +62,7 @@
     <Compile Include="Models\ConfigurationData.Dynamic.cs" />
     <Compile Include="Models\ConfigurationData.IDictionary.cs" />
     <Compile Include="Models\NullExceptionPreventer.cs" />
+    <Compile Include="Models\OptionsData.cs" />
     <Compile Include="Models\Unsubscriber.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="TrayBasedContext.cs" />
