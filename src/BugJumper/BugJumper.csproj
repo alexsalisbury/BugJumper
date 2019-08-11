@@ -67,6 +67,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="TrayBasedContext.cs" />
     <Compile Include="UrlLauncher.cs" />
+    <Compile Include="Views\INamedForm.cs" />
     <Compile Include="Views\Launchpad.cs">
       <SubType>Form</SubType>
     </Compile>

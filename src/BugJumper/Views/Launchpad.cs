@@ -5,15 +5,6 @@
     using BugJumper;
     using BugJumper.Services;
 
-    public interface INamedForm
-    {
-#if NETCOREAPP3_0
-        static string CanonicalNameCore { get; }
-#else
-        string CanonicalName { get; }
-#endif
-    }
-
     public partial class Launchpad : Form, INamedForm
     {
 
